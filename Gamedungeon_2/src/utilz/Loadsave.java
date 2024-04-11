@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 public class Loadsave {
     public static final String Player_Atlas = "";
-    public static final String Level_Atlas = "/res/1.jpg";
+    public static final String Level_Atlas = "/res/tiles_tiny_sample_2.png";
     public static final String Level_One_Data = "/res/2.jpg";
 
     public static BufferedImage GetSpriteAtlas(String filename){

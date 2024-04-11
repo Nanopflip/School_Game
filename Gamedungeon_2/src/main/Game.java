@@ -14,11 +14,11 @@ public class Game implements Runnable{
 
 
     public Game(){
+        new Levelmanager(this);
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
-        new Levelmanager(this);
         startGameLoop();
     }
 
@@ -32,6 +32,7 @@ public class Game implements Runnable{
     }
 
     public void render(Graphics g){
+        Levelmanager.render(g);
     }
 
 

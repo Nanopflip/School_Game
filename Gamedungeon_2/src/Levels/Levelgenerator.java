@@ -29,22 +29,22 @@ public class Levelgenerator {
             }
             boolean varFound = false;
             if (lastPoint[1] - 1 >= 0 && level[lastPoint[0]][lastPoint[1] - 1] == 0){
-                    directions[0] = 1;
+                directions[0] = 1;
             } else {
                 directions[0] = 0;
             }
             if (lastPoint[1] + 1 < level[0].length && level[lastPoint[0]][lastPoint[1] + 1] == 0){
-                    directions[1] = 1;
+                directions[1] = 1;
             } else {
                 directions[1] = 0;
             }
             if (lastPoint[0] - 1 >= 0 && level[lastPoint[0] - 1][lastPoint[1]] == 0 ){
-                    directions[2] = 1;
+                directions[2] = 1;
             } else {
                 directions[2] = 0;
             }
             if (lastPoint[0] + 1 < level.length && (level[lastPoint[0] + 1][lastPoint[1]] == 0)){
-                    directions[3] = 1;
+                directions[3] = 1;
             } else {
                 directions[3] = 0;
             }
@@ -145,24 +145,105 @@ public class Levelgenerator {
     private static int[][] generatePointsOfInterrest(int[][] level){
         boolean found = false;
         int counter = 0;
-        int[] point = new int[2];
-        for (int i = 0; i < level.length; i++){
-            if (level[0][i] != 0){
-                counter += 1;
-                point[1] = level[0][i];
-            }
-        }
-        if (counter == 1){
-            level[0][point[1]] += 10000;
-        } else {
-            for (int i = 0; i < level.length; i++){
-                if ((level[0][i] & (level[0][i] - 1)) == 0 && level[0][i] != 0 && !found){
-                    level[0][i] += 10000;
-                    found = true;
+        int point = 0;
+        int length = level.length - 1;
+            for (int i = 0; i < 3; i++){
+                for (int j = 0; j < level[i].length; j++) {
+                    if (!found){
+                    if (level[i][j] == 1000) {
+                        level[i][j] += 10000;
+                        found = true;
+                    } else if (level[i][j] == 100) {
+                        level[i][j] += 10000;
+                        found = true;
+                    } else if (level[i][j] == 10) {
+                        level[i][j] += 10000;
+                        found = true;
+                    } else if (level[i][j] == 1) {
+                        level[i][j] += 10000;
+                        found = true;
+                    }
+                    }
                 }
             }
             if (!found){
+                for(int i = 0; i < level.length - 1; i++){
+                    if (level[0][i] != 0 && !found){
+                        if (level[0][i + 1] != 0){
+                            if (level[1][i] != 0){
+                                if (level[1][i + 1] != 0){
+                                    found = true;
+                                    counter = (int) (Math.random() * 2);
+                                    if (counter > 1){
+                                        level[0][i] += 10000;
+                                    } else {
+                                        level[0][i + 1] += 10000;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
+        found = false;
+        counter = 0;
+            for (int i = length ; i >= length -3; i--){
+                for (int j = 0; j < level[i].length; j++) {
+                    if (!found){
+                    if (level[i][j] == 1000) {
+                        level[i][j] += 10000;
+                        found = true;
+                    } else if (level[i][j] == 100) {
+                        level[i][j] += 10000;
+                        found = true;
+                    } else if (level[i][j] == 10) {
+                        level[i][j] += 10000;
+                        found = true;
+                    } else if (level[i][j] == 1) {
+                        level[i][j] += 10000;
+                        found = true;
+                    }
+                    }
+                }
+            }
+            if (!found){
+                for(int i = 0; i < level.length - 2; i++){
+                    if (level[length][i] != 0 && !found){
+                        if (level[length][i + 1] != 0){
+                            if (level[length - 1][i] != 0){
+                                if (level[length - 1][i + 1] != 0){
+                                    found = true;
+                                    level[length][i] += 10000;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        counter  = (int)(Math.random() * 5);
+        found = false;
+        switch (counter) {
+            case 0:
+                //Laden
+                point = 20000;
+                break;
+            case 1:
+                //Schatz
+                point = 30000;
+                break;
+            default:
+                point = 7000000;
+        }
+        for (int i = (int) (length / 2) -1; i <= length ;i++) {
+            for (int j = 0; j <= length; j++) {
+                if (level[i][j] == 0 && !found) {
+                    if (j + 1 < 5 && level[i][j] < 10000 && level[i][j+1] != 0){
+                        found = true;
+                        level[i][j] = point;
+                    }
+                }
             }
         }
         return level;

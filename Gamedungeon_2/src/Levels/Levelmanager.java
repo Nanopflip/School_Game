@@ -1,7 +1,6 @@
 package Levels;
 
 import main.Game;
-import utilz.Loadsave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,19 +8,19 @@ import java.awt.image.BufferedImage;
 public class Levelmanager {
     private Game game;
     private Levelgenerator levelgenerator;
+    private RoomGenerator roomGenerator;
     private BufferedImage[] levelSprite;
-    private int currentLevel = 0;
+    private static int currentLevel = 0;
     private int[] currentstage = new int[2];
     public Levelmanager(Game game){
         this.game = game;
-        levelgenerator = new Levelgenerator();
         createLevel();
     }
 
     public void createLevel(){
         switch (currentLevel){
             case 0:
-                LevelOne levelOne = new LevelOne(game, levelgenerator);
+                LevelOne levelOne = new LevelOne(game);
         }
     }
 
@@ -29,11 +28,15 @@ public class Levelmanager {
 
     }
 
-    public int getCurrentLevel() {
+    public static void render(Graphics g){
+          LevelOne.render(g);
+    }
+
+    public static int getCurrentLevel() {
         return currentLevel;
     }
 
-    public void setCurrentLevel(int current_level) {
-        this.currentLevel = current_level;
+    public static void setCurrentLevel(int current_level) {
+        Levelmanager.currentLevel = current_level;
     }
 }

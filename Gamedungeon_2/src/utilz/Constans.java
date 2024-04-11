@@ -8,7 +8,10 @@ public class Constans {
         public static final int DOWN = 2;
         public static final int RIGHT = 3;
         public static final int UPLEFT = 4;
+    }
 
+    public static class RoomTiles{
+        public static final int LEFT = 0;
     }
 
 
