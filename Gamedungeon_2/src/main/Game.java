@@ -8,6 +8,7 @@ import java.awt.*;
 public class Game implements Runnable{
     private GameWindow gameWindow;
     private GamePanel gamePanel;
+    private Player player;
     private Thread gameThread;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
@@ -15,6 +16,7 @@ public class Game implements Runnable{
 
     public Game(){
         new Levelmanager(this);
+        player = new Player(10,10);
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gamePanel.setFocusable(true);
@@ -29,10 +31,12 @@ public class Game implements Runnable{
     }
 
     public void update(){
+        player.update();
     }
 
     public void render(Graphics g){
         Levelmanager.render(g);
+        player.render(g);
     }
 
 
@@ -61,6 +65,7 @@ public class Game implements Runnable{
                 deltaU--;
             }
             if (deltaF >= 1){
+                gamePanel.repaint();
                 deltaF--;
                 frames++;
             }
@@ -75,5 +80,9 @@ public class Game implements Runnable{
     }
 
     public void windowFocusLost(){
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

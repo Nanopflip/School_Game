@@ -11,13 +11,13 @@ public class RoomGenerator {
     }
 
     private static void generateRoomShape() {
-        int counter = (int) (Math.random() * 10) + 15;
+        int counter = (int) (Math.random() * 20) + 35;
         if (counter % 2 != 1) {
             counter++;
         }
         roomLayout = new int[counter];
         //(int) (Math.random() * 5)
-        switch (3) {
+        switch (1) {
             /* 10|00|00|00|00|
                first digits starting point
                second digits amount of tiles
@@ -41,7 +41,8 @@ public class RoomGenerator {
             case 3:
                 //donut
                 int[] smallerCircle;
-                int calc = (roomLayout.length / 4);
+                int calc = (roomLayout.length / 2);
+                int save;
                 if (calc % 2 == 0){
                     smallerCircle = new int[calc + 1];
                 } else {
@@ -50,25 +51,25 @@ public class RoomGenerator {
                 roomLayout = generateCircle(roomLayout);
                 smallerCircle = generateCircle(smallerCircle);
                 for (int i = 0; i < smallerCircle.length; i++){
-                    System.out.println(((int)((roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2] / 2) % 100000000) / 1000000) * 1000000);
-                    System.out.println(smallerCircle[i] % 100000000);
-                    System.out.println(((int)(roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2] / 100000000) * 100000000));
-                    System.out.println( roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2]);
                     calc = ((int)(((roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2]) % 100000000) / 2) / 1000000);
                     calc += 2;
                     if (calc % 2 == 0){
                         calc++;
                     }
                     calc *= 1000000;
+                    save = roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2]  % 100000000 / 1000000;
                     roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2] = calc - smallerCircle[i] % 100000000 + (smallerCircle[i] % 100000000) / 100  + ((int)(roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2] / 100000000) * 100000000);
-                    System.out.println( roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2]);
+                    while (save != (roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2]  % 100000000 / 1000000) * 2 + smallerCircle[i] % 100000000 / 1000000){
+                        if (save < (roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2]  % 100000000 / 1000000) * 2 + smallerCircle[i] % 100000000 / 1000000){
+                            roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2] -= 1000000;
+                        } else {
+                            roomLayout[i + roomLayout.length / 2 - smallerCircle.length / 2] += 1000000;
+                        }
+                    }
                 }
                 for (int i = 0; i < smallerCircle.length; i++){
                     roomLayout[i] += 2;
                 }
-                System.out.println(Arrays.toString(roomLayout));
-                System.out.println(smallerCircle.length);
-                System.out.println(Arrays.toString(smallerCircle));
 
 
                 break;

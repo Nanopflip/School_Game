@@ -10,6 +10,13 @@ public class Constans {
         public static final int UPLEFT = 4;
     }
 
+    public static class PlayerHitbox{
+        public static final int yMin = 468;
+        public static final int yMax = 612;
+        public static final int xMin = 908;
+        public static final int xMax = 1052;
+    }
+
     public static class RoomTiles{
         public static final int LEFT = 0;
     }

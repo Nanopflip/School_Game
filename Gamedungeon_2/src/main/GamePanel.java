@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     private MouseInputs mouseInputs;
-    private Game game;
+    private static Game game;
 
     public GamePanel(Game game){
        mouseInputs = new MouseInputs(this);
@@ -25,7 +25,7 @@ public class GamePanel extends JPanel {
 
 
     private void setPanelSize(){
-        Dimension size = new Dimension(1000, 1000);
+        Dimension size = new Dimension(19600, 1080);
         setPreferredSize(size);
     }
 
@@ -38,7 +38,7 @@ public class GamePanel extends JPanel {
         game.render(g);
     }
 
-    public Game getGame(){
+    public static Game getGame(){
         return game;
     }
 

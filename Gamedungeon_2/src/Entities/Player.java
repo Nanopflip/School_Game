@@ -13,10 +13,11 @@ import static utilz.Constans.Directions.*;
 
 
 public class Player extends Entity{
-    private BufferedImage[][] animations;
+    private BufferedImage img;
     private int aniTick, aniIndex, aniCalc = 1, aniSpeed = 15;
     private int playerAction = IDLE;
     private boolean left, right, up , down;
+    private static int xGlobalPosition, yGlobalPosition;
     private float playerSpeed = 2.0f;
     private boolean moving = false;
     private boolean aniWait = false;
@@ -28,11 +29,11 @@ public class Player extends Entity{
 
     public void update(){
         updatePos();
-        updateAnimationTick();
-        setAnimation();
+        //updateAnimationTick();
+        //setAnimation();
     }
-    public void Render(Graphics g){
-        g.drawImage(animations[playerAction][aniIndex].getSubimage(0,0,144,144),0,0, 144, 144, null);
+    public void render(Graphics g){
+        g.drawImage(img,980,540, 144, 144, null);
     }
 
     private void updateAnimationTick(){
@@ -49,7 +50,6 @@ public class Player extends Entity{
                 }
             }
                    }
-         */
         aniSpeed = 10;
         if (aniTick >= aniSpeed) {
             aniTick = 0;
@@ -62,16 +62,20 @@ public class Player extends Entity{
                 }
             }
         }
+
+         */
     }
 
     private void loadAnimations() {
-            BufferedImage img = Loadsave.GetSpriteAtlas(Loadsave.Player_Atlas);
-            animations = new BufferedImage[9][6];
+            img = Loadsave.GetSpriteAtlas(Loadsave.Level_Atlas);
+            /*
+            animations = new BufferedImage[3][3];
             for (int j = 0; j < animations.length; j++) {
                 for (int i = 0; i < animations[j].length; i++) {
                     animations[j][i] = img.getSubimage(i * 144, j * 144, 144, 144);
                 }
             }
+                         */
     }
 
     private void setAnimation(){
@@ -87,16 +91,20 @@ public class Player extends Entity{
         if (left && !right){
             x-= playerSpeed;
             moving = true;
+            xGlobalPosition += 1;
         } else if (right && !left) {
             x+= playerSpeed;
             moving = true;
+            xGlobalPosition -= 1;
         }
         if (up && !down){
             y-= playerSpeed;
             moving = true;
+            yGlobalPosition += 1;
         } else if (down && !up) {
             y+= playerSpeed;
             moving = true;
+            yGlobalPosition -= 1;
         }
     }
 
@@ -118,5 +126,13 @@ public class Player extends Entity{
     }
     public void setUp(boolean input){
         this.up = input;
+    }
+
+    public static int getxGlobalPosition(){
+        return xGlobalPosition;
+    }
+
+    public static int getyGlobalPosition(){
+        return yGlobalPosition;
     }
 }
